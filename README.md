@@ -31,3 +31,31 @@ locators - папка с локаторами
 7. На всякий случай *pip install wheel*
 
 Запуск тестов: команда ```pytest```
+
+yml для Gitlab такой примерно можно накидать
+```image: python:3.7
+
+stages:
+  - test
+
+test:
+  stage: test
+
+  services:
+    - name: selenium/standalone-chrome
+
+  before_script:
+    # Установка окружения
+    - echo "Install environment"
+    - apt-get update -q -y
+    - pip3 install -r requirements.txt
+
+    # скачиваем и подготавливаем к работе webdriver firefox
+    - echo "Get geckodriver"
+    - wget https://github.com/chrome/etc
+    - tar -xvzf chromedriver.tar.gz
+    - chmod +x chromdriver
+
+  script:
+    - echo "Run all tests"
+    - pytest -v -m smoke
