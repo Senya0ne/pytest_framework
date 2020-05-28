@@ -58,4 +58,4 @@ test:
 
   script:
     - echo "Run all tests"
-    - pytest -v -m smoke
+    - pytest -v
